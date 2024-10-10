@@ -20,7 +20,7 @@ const getOne = (table) =>
 
     if (table === 'users') {
       if (doc.photo) {
-        doc.photo = `${process.env.HOST_URL}/img/users/${doc.photo}`;
+        doc.photo = `${process.env.BACKEND_URL}:${process.env.PORT}/img/users/${doc.photo}`;
       }
     }
     console.log('from get one user', doc);
@@ -206,10 +206,10 @@ const updateOne = (table) =>
 //         const c = obj.images[1];
 //         const d = obj.images[2];
 
-//         obj.imageCover = `${process.env.HOST_URL}/img/camps/${a}`;
-//         obj.images[0] = `${process.env.HOST_URL}/img/camps/${b}`;
-//         obj.images[1] = `${process.env.HOST_URL}/img/camps/${c}`;
-//         obj.images[2] = `${process.env.HOST_URL}/img/camps/${d}`;
+//         obj.imageCover = `${process.env.BACKEND_URL}:${process.env.PORT}/img/camps/${a}`;
+//         obj.images[0] = `${process.env.BACKEND_URL}:${process.env.PORT}/img/camps/${b}`;
+//         obj.images[1] = `${process.env.BACKEND_URL}:${process.env.PORT}/img/camps/${c}`;
+//         obj.images[2] = `${process.env.BACKEND_URL}:${process.env.PORT}/img/camps/${d}`;
 //       }
 //     });
 
@@ -238,7 +238,7 @@ const getAll = (table) =>
     if (table === 'camps') {
       doc.forEach((obj) => {
         if (obj.imageCover) {
-          obj.imageCover = `${process.env.HOST_URL}/img/camps/${obj.imageCover}`;
+          obj.imageCover = `${process.env.BACKEND_URL}:${process.env.PORT}/img/camps/${obj.imageCover}`;
         }
 
         if (obj.images) {
@@ -248,7 +248,8 @@ const getAll = (table) =>
               ? JSON.parse(obj.images)
               : obj.images;
           obj.images = images.map(
-            (image) => `${process.env.HOST_URL}/img/camps/${image}`
+            (image) =>
+              `${process.env.BACKEND_URL}:${process.env.PORT}/img/camps/${image}`
           );
         }
       });
