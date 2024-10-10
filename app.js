@@ -1,6 +1,5 @@
 import hpp from 'hpp';
 import cors from 'cors';
-
 import morgan from 'morgan';
 import helmet from 'helmet';
 import xss from 'xss-clean';
@@ -26,7 +25,11 @@ const app = express();
 app.enable('trust proxy');
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
+// app.use(express.json());
+
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(cookieParser());
 
 const corsOptions = {
   credentials: true,
@@ -94,6 +97,7 @@ app.get('/', (req, res) => {
 });
 
 app.all('*', (req, res, next) => {
+  console.log('⛔ From app req for * route. originalUrl=', req.originalUrl);
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
