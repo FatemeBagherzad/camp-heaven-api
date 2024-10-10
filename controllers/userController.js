@@ -70,20 +70,26 @@ const updateMe = catchAsync(async (req, res, next) => {
   }
 
   const filteredBody = filterObj(req.body, 'name');
+  console.log('1');
   if (req.file) filteredBody.photo = req.file.filename;
+  console.log('2');
   const result = await knex('users')
     .where({ id: req.user.id })
     .update(filteredBody);
+  console.log('3');
   const updatedUser = await knex('users').where({ id: req.user.id }).first();
+  console.log('4');
   if (!updatedUser) {
     return next(new AppError('User not found', 404));
   }
+  console.log('5');
   res.status(200).json({
     status: 'success',
     data: {
       user: updatedUser,
     },
   });
+  console.log('6');
 });
 
 // Deactivate user
