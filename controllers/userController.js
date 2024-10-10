@@ -78,7 +78,6 @@ const updateMe = catchAsync(async (req, res, next) => {
   if (!updatedUser) {
     return next(new AppError('User not found', 404));
   }
-  console.log('updatedUser🟨⏫🟨', updatedUser);
   res.status(200).json({
     status: 'success',
     data: {

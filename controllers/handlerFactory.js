@@ -18,6 +18,12 @@ const getOne = (table) =>
       return next(new AppError('No document found with that ID', 404));
     }
 
+    if (table === 'users') {
+      if (doc.photo) {
+        doc.photo = `${process.env.HOST_URL}/img/users/${doc.photo}`;
+      }
+    }
+    console.log('from get one user', doc);
     res.status(200).json({
       status: 'success',
       data: {
